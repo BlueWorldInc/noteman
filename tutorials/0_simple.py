@@ -3,7 +3,7 @@ import sys
 from PySide6 import QtWidgets, QtGui, QtCore
 
 
-class Example(QtWidgets.QWidget):
+class Example(QtWidgets.QMainWindow):
 
 	def __init__(self):
 		super(Example, self).__init__()
@@ -20,27 +20,34 @@ class Example(QtWidgets.QWidget):
 		# btn.setToolTip('This is a <b>QPushButton</b> widget')
 
 		# Exit button
-		qbtn = QtWidgets.QPushButton('Quit', self)
-		qbtn.clicked.connect(QtCore.QCoreApplication.instance().quit)
+		# qbtn = QtWidgets.QPushButton('Quit', self)
+		# qbtn.clicked.connect(QtCore.QCoreApplication.instance().quit)
+
+		# Icon
+		# note_icons_file_path = "C:\\Users\\neo\\Documents\\CODE\\Python\\Noteman\\gui\\"
+		# app_icon = QtGui.QIcon()
+		# app_icon.addFile(note_icons_file_path + 'notes16x16.png', QtCore.QSize(16,16))
+		# self.setWindowIcon(app_icon)
+
+		# Status Bar
+		self.statusBar().showMessage('Ready')
 
 		self.setGeometry(300, 300, 250, 150)
 		self.setWindowTitle('Icon')
-		note_icons_file_path = "C:\\Users\\neo\\Documents\\CODE\\Python\\Noteman\\gui\\"
-		app_icon = QtGui.QIcon()
-		app_icon.addFile(note_icons_file_path + 'notes16x16.png', QtCore.QSize(16,16))
-		self.setWindowIcon(app_icon)
+		
+		
 		self.center()
 		self.show()
 
-	def closeEvent(self, event):
-		reply = QtWidgets.QMessageBox.question(self, 'Message',
-	    "Are you sure to quit?", QtWidgets.QMessageBox.Yes | 
-    	QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.No)
+	# def closeEvent(self, event):
+		# reply = QtWidgets.QMessageBox.question(self, 'Message',
+	    # "Are you sure to quit?", QtWidgets.QMessageBox.Yes | 
+    	# QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.No)
 
-		if reply == QtWidgets.QMessageBox.Yes:
-		    event.accept()
-		else:
-		    event.ignore()
+		# if reply == QtWidgets.QMessageBox.Yes:
+		#     event.accept()
+		# else:
+		#     event.ignore()
 	
 	def center(self):
 		qr = self.frameGeometry()
