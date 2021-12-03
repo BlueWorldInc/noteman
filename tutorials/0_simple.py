@@ -44,10 +44,9 @@ class Example(QtWidgets.QWidget):
 	
 	def center(self):
 		qr = self.frameGeometry()
-		cp = QtGui.QScreen().availableGeometry().center()
+		cp = QtGui.QScreen.availableGeometry(QtWidgets.QApplication.primaryScreen()).center()
 		qr.moveCenter(cp)
-		# self.move(qr.topLeft())
-		# self.move(qr.topLeft())
+		self.move(qr.topLeft())
 	
 
 def main():
