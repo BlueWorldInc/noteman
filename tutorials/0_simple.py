@@ -24,17 +24,49 @@ class Example(QtWidgets.QMainWindow):
 		# qbtn.clicked.connect(QtCore.QCoreApplication.instance().quit)
 
 		# Icon
-		# note_icons_file_path = "C:\\Users\\neo\\Documents\\CODE\\Python\\Noteman\\gui\\"
-		# app_icon = QtGui.QIcon()
-		# app_icon.addFile(note_icons_file_path + 'notes16x16.png', QtCore.QSize(16,16))
-		# self.setWindowIcon(app_icon)
+		note_icons_file_path = "C:\\Users\\neo\\Documents\\CODE\\Python\\Noteman\\gui\\"
+		app_icon = QtGui.QIcon()
+		app_icon.addFile(note_icons_file_path + 'notes16x16.png', QtCore.QSize(16,16))
+		self.setWindowIcon(app_icon)
 
 		# Status Bar
 		self.statusBar().showMessage('Ready')
 
+		# Menu
+		exitAction = QtGui.QAction(app_icon, '&Exit', self)
+		aboutAction = QtGui.QAction(app_icon, '&About', self)
+		exitAction.setShortcut('Ctrl+Q')
+		exitAction.setStatusTip('Exit application')
+		exitAction.triggered.connect(self.close)
+		menubar = self.menuBar()
+		fileMenu = menubar.addMenu('&File')
+		helpMenu = menubar.addMenu('&Help')
+		helpMenu.addAction(aboutAction)
+		fileMenu.addAction(exitAction)
+
+		# Toolbars
+		# exitAction = QtGui.QAction(app_icon, 'Exit', self)
+		# exitAction.setShortcut('Ctrl+Q')
+		# exitAction.triggered.connect(self.close)
+		# self.toolbar = self.addToolBar('Exit')
+		# self.toolbar.addAction(exitAction)
+		# self.toolbar.setFloatable(False)
+		# self.toolbar.setMovable(False)
+
 		self.setGeometry(300, 300, 250, 150)
 		self.setWindowTitle('Icon')
+
+		# TextEdit
+		# textEdit = QtWidgets.QTextEdit()
+		# self.setCentralWidget(textEdit)
 		
+		# Layout
+		label1 = QtWidgets.QLabel('Zetcode', self)
+		label1.move(15, 10)
+		label2 = QtWidgets.QLabel('tutorials', self)
+		label2.move(35, 40)
+		label3 = QtWidgets.QLabel('for programmers', self)
+		label3.move(55, 70)
 		
 		self.center()
 		self.show()
