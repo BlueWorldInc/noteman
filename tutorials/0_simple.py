@@ -61,12 +61,26 @@ class Example(QtWidgets.QMainWindow):
 		# self.setCentralWidget(textEdit)
 		
 		# Layout
-		label1 = QtWidgets.QLabel('Zetcode', self)
-		label1.move(15, 10)
-		label2 = QtWidgets.QLabel('tutorials', self)
-		label2.move(35, 40)
-		label3 = QtWidgets.QLabel('for programmers', self)
-		label3.move(55, 70)
+		# label1 = QtWidgets.QLabel('Zetcode', self)
+		# label1.move(15, 10)
+		# label2 = QtWidgets.QLabel('tutorials', self)
+		# label2.move(35, 40)
+		# label3 = QtWidgets.QLabel('for programmers', self)
+		# label3.move(55, 70)
+
+		# Box Layout
+		okButton = QtWidgets.QPushButton("OK")
+		cancelButton = QtWidgets.QPushButton("Cancel")
+		hbox = QtWidgets.QHBoxLayout()
+		hbox.addStretch(1)
+		hbox.addWidget(okButton)
+		hbox.addWidget(cancelButton)
+		vbox = QtWidgets.QVBoxLayout()
+		vbox.addStretch(1)
+		vbox.addLayout(hbox)
+		widget = QtWidgets.QWidget()
+		widget.setLayout(vbox)
+		self.setCentralWidget(widget)
 		
 		self.center()
 		self.show()
