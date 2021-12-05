@@ -69,17 +69,68 @@ class Example(QtWidgets.QMainWindow):
 		# label3.move(55, 70)
 
 		# Box Layout
-		okButton = QtWidgets.QPushButton("OK")
-		cancelButton = QtWidgets.QPushButton("Cancel")
-		hbox = QtWidgets.QHBoxLayout()
-		hbox.addStretch(1)
-		hbox.addWidget(okButton)
-		hbox.addWidget(cancelButton)
-		vbox = QtWidgets.QVBoxLayout()
-		vbox.addStretch(1)
-		vbox.addLayout(hbox)
+		# okButton = QtWidgets.QPushButton("OK")
+		# cancelButton = QtWidgets.QPushButton("Cancel")
+		# hbox = QtWidgets.QHBoxLayout()
+		# hbox.addStretch(1)
+		# hbox.addWidget(okButton)
+		# hbox.addWidget(cancelButton)
+		# vbox = QtWidgets.QVBoxLayout()
+		# vbox.addStretch(1)
+		# vbox.addLayout(hbox)
+		# widget = QtWidgets.QWidget()
+		# widget.setLayout(vbox)
+		# self.setCentralWidget(widget)
+
+		# Grid Layout
+		# names = ['Cls', 'Bck', '', 'Close', '7', '8', '9', '/',
+        #         '4', '5', '6', '*', '1', '2', '3', '-',
+        #         '0', '.', '=', '+']
+
+		# grid = QtWidgets.QGridLayout()
+
+		# j = 0
+		# pos = [(0, 0), (0, 1), (0, 2), (0, 3),
+        #         (1, 0), (1, 1), (1, 2), (1, 3),
+        #         (2, 0), (2, 1), (2, 2), (2, 3),
+        #         (3, 0), (3, 1), (3, 2), (3, 3 ),
+        #         (4, 0), (4, 1), (4, 2), (4, 3)]
+
+		# for i in names:
+		# 	button = QtWidgets.QPushButton(i)
+		# 	if j == 2:
+		# 		grid.addWidget(QtWidgets.QLabel(''), 0, 2)
+		# 	else: grid.addWidget(button, pos[j][0], pos[j][1])
+		# 	j = j + 1
+
+		# widget = QtWidgets.QWidget()
+		# widget.setLayout(grid)
+		# self.setCentralWidget(widget)
+
+		# Grid Layout 2
+
+		title = QtWidgets.QLabel('Title')
+		author = QtWidgets.QLabel('Author')
+		review = QtWidgets.QLabel('Review')
+
+		titleEdit = QtWidgets.QLineEdit()
+		authorEdit = QtWidgets.QLineEdit()
+		reviewEdit = QtWidgets.QTextEdit()
+
+		grid = QtWidgets.QGridLayout()
+		grid.setSpacing(10)
+
+		grid.addWidget(title, 1, 0)
+		grid.addWidget(titleEdit, 1, 1)
+
+		grid.addWidget(author, 2, 0)
+		grid.addWidget(authorEdit, 2, 1)
+
+		grid.addWidget(review, 3, 0)
+		grid.addWidget(reviewEdit, 3, 1, 5, 1)
+        
 		widget = QtWidgets.QWidget()
-		widget.setLayout(vbox)
+		widget.setLayout(grid)
 		self.setCentralWidget(widget)
 		
 		self.center()
