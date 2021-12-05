@@ -2,6 +2,8 @@
 import sys
 from PySide6 import QtWidgets, QtGui, QtCore
 
+class Communicate(QtCore.QObject):    
+    closeApp = QtCore.Signal()
 
 class Example(QtWidgets.QMainWindow):
 
@@ -109,32 +111,70 @@ class Example(QtWidgets.QMainWindow):
 
 		# Grid Layout 2
 
-		title = QtWidgets.QLabel('Title')
-		author = QtWidgets.QLabel('Author')
-		review = QtWidgets.QLabel('Review')
+		# title = QtWidgets.QLabel('Title')
+		# author = QtWidgets.QLabel('Author')
+		# review = QtWidgets.QLabel('Review')
 
-		titleEdit = QtWidgets.QLineEdit()
-		authorEdit = QtWidgets.QLineEdit()
-		reviewEdit = QtWidgets.QTextEdit()
+		# titleEdit = QtWidgets.QLineEdit()
+		# authorEdit = QtWidgets.QLineEdit()
+		# reviewEdit = QtWidgets.QTextEdit()
 
-		grid = QtWidgets.QGridLayout()
-		grid.setSpacing(10)
+		# grid = QtWidgets.QGridLayout()
+		# grid.setSpacing(10)
 
-		grid.addWidget(title, 1, 0)
-		grid.addWidget(titleEdit, 1, 1)
+		# grid.addWidget(title, 1, 0)
+		# grid.addWidget(titleEdit, 1, 1)
 
-		grid.addWidget(author, 2, 0)
-		grid.addWidget(authorEdit, 2, 1)
+		# grid.addWidget(author, 2, 0)
+		# grid.addWidget(authorEdit, 2, 1)
 
-		grid.addWidget(review, 3, 0)
-		grid.addWidget(reviewEdit, 3, 1, 5, 1)
+		# grid.addWidget(review, 3, 0)
+		# grid.addWidget(reviewEdit, 3, 1, 5, 1)
         
-		widget = QtWidgets.QWidget()
-		widget.setLayout(grid)
-		self.setCentralWidget(widget)
+		# widget = QtWidgets.QWidget()
+		# widget.setLayout(grid)
+		# self.setCentralWidget(widget)
 		
+		# Signals and Slots
+		# lcd = QtWidgets.QLCDNumber(self)
+		# sld = QtWidgets.QSlider(QtCore.Qt.Horizontal, self)
+
+		# vbox = QtWidgets.QVBoxLayout()
+		# vbox.addWidget(lcd)
+		# vbox.addWidget(sld)
+
+		# widget = QtWidgets.QWidget()
+		# widget.setLayout(vbox)
+		# self.setCentralWidget(widget)
+		# sld.valueChanged.connect(lcd.display)
+
+		# Event Sender
+		# btn1 = QtWidgets.QPushButton("Button 1", self)
+		# btn1.move(30, 50)
+		# btn2 = QtWidgets.QPushButton("Button 2", self)
+		# btn2.move(150, 50)
+		# btn1.clicked.connect(self.buttonClicked)            
+		# btn2.clicked.connect(self.buttonClicked)
+		# self.statusBar()
+
+		# Custom Signals
+		self.c = Communicate()
+		self.c.closeApp.connect(self.close)  
+
 		self.center()
 		self.show()
+
+	# def mousePressEvent(self, event):
+	    # self.c.closeApp.emit()
+
+	# def buttonClicked(self):
+	# 	sender = self.sender()
+	# 	self.statusBar().showMessage(sender.text() + ' was pressed')
+
+
+	# def keyPressEvent(self, e):
+		# if e.key() == QtCore.Qt.Key_Escape:
+			# self.close()
 
 	# def closeEvent(self, event):
 		# reply = QtWidgets.QMessageBox.question(self, 'Message',
