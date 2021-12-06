@@ -158,11 +158,28 @@ class Example(QtWidgets.QMainWindow):
 		# self.statusBar()
 
 		# Custom Signals
-		self.c = Communicate()
-		self.c.closeApp.connect(self.close)  
+		# self.c = Communicate()
+		# self.c.closeApp.connect(self.close)  
+
+		# Inputs dialog
+		self.btn = QtWidgets.QPushButton('Dialog', self)
+		self.btn.move(20, 20)
+		self.btn.clicked.connect(self.showDialog)
+		# widget = QtWidgets.QWidget()
+		# widget.setLayout(vbox)
+		# self.setCentralWidget(widget)
+		self.le = QtWidgets.QLineEdit(self)
+		self.le.move(130, 22)
 
 		self.center()
 		self.show()
+
+	def showDialog(self):
+		text, ok = QtWidgets.QInputDialog.getText(self, 'Input Dialog', 
+		    'Enter your name:')
+			
+		if ok:
+			self.le.setText(str(text))
 
 	# def mousePressEvent(self, event):
 	    # self.c.closeApp.emit()
