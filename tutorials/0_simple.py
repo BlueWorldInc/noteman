@@ -161,25 +161,43 @@ class Example(QtWidgets.QMainWindow):
 		# self.c = Communicate()
 		# self.c.closeApp.connect(self.close)  
 
-		# Inputs dialog
+		# Inputs Dialog
+		# self.btn = QtWidgets.QPushButton('Dialog', self)
+		# self.btn.move(20, 20)
+		# self.btn.clicked.connect(self.showDialog)
+		# # widget = QtWidgets.QWidget()
+		# # widget.setLayout(vbox)
+		# # self.setCentralWidget(widget)
+		# self.le = QtWidgets.QLineEdit(self)
+		# self.le.move(130, 22)
+
+		# Color Dialog
+		col = QtGui.QColor(0, 0, 0)
 		self.btn = QtWidgets.QPushButton('Dialog', self)
-		self.btn.move(20, 20)
+		self.btn.move(20, 40)
 		self.btn.clicked.connect(self.showDialog)
-		# widget = QtWidgets.QWidget()
-		# widget.setLayout(vbox)
-		# self.setCentralWidget(widget)
+		self.frm = QtWidgets.QFrame(self)
+		self.frm.setStyleSheet("QWidget { background-color: %s }" % col.name())
+		self.frm.setGeometry(130, 22, 100, 100) 
+
 		self.le = QtWidgets.QLineEdit(self)
-		self.le.move(130, 22)
+		self.le.move(130, 202)
+
 
 		self.center()
 		self.show()
 
 	def showDialog(self):
-		text, ok = QtWidgets.QInputDialog.getText(self, 'Input Dialog', 
-		    'Enter your name:')
-			
-		if ok:
-			self.le.setText(str(text))
+		col = QtWidgets.QColorDialog.getColor()
+
+		if col.isValid():
+			self.frm.setStyleSheet("QWidget { background-color: %s }" % col.name())
+
+	# def showDialog(self):
+	# 	text, ok = QtWidgets.QInputDialog.getText(self, 'Input Dialog', 
+	# 	    'Enter your name:')
+	# 	if ok:
+	# 		self.le.setText(str(text))
 
 	# def mousePressEvent(self, event):
 	    # self.c.closeApp.emit()
