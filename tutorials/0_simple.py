@@ -172,26 +172,44 @@ class Example(QtWidgets.QMainWindow):
 		# self.le.move(130, 22)
 
 		# Color Dialog
-		col = QtGui.QColor(0, 0, 0)
-		self.btn = QtWidgets.QPushButton('Dialog', self)
-		self.btn.move(20, 40)
-		self.btn.clicked.connect(self.showDialog)
-		self.frm = QtWidgets.QFrame(self)
-		self.frm.setStyleSheet("QWidget { background-color: %s }" % col.name())
-		self.frm.setGeometry(130, 22, 100, 100) 
+		# col = QtGui.QColor(0, 0, 0)
+		# self.btn = QtWidgets.QPushButton('Dialog', self)
+		# self.btn.move(20, 40)
+		# self.btn.clicked.connect(self.showDialog)
+		# self.frm = QtWidgets.QFrame(self)
+		# self.frm.setStyleSheet("QWidget { background-color: %s }" % col.name())
+		# self.frm.setGeometry(130, 22, 100, 100) 
 
-		self.le = QtWidgets.QLineEdit(self)
-		self.le.move(130, 202)
+		# self.le = QtWidgets.QLineEdit(self)
+		# self.le.move(130, 202)
 
+		# Font Dialog
+		# vbox = QtWidgets.QVBoxLayout()
+		# btn = QtWidgets.QPushButton('Dialog', self)
+		# btn.setSizePolicy(QtWidgets.QSizePolicy.Fixed,
+        #     QtWidgets.QSizePolicy.Fixed)
+		# btn.move(20, 20)
+		# btn.clicked.connect(self.showDialog)
+		# self.lbl = QtWidgets.QLabel('Knowledge only matters', self)
+		# self.lbl.move(130, 20)
+		# self.lbl.setGeometry(130, 22, 1000, 1000)
+		# vbox.addWidget(self.lbl)
+		# self.setLayout(vbox)
+		# vbox.addWidget(btn)
 
 		self.center()
 		self.show()
 
-	def showDialog(self):
-		col = QtWidgets.QColorDialog.getColor()
+	# def showDialog(self):
+	# 	ok, font = QtWidgets.QFontDialog.getFont()
+	# 	if ok:
+ 	# 	    self.lbl.setFont(font)
 
-		if col.isValid():
-			self.frm.setStyleSheet("QWidget { background-color: %s }" % col.name())
+	# def showDialog(self):
+	# 	col = QtWidgets.QColorDialog.getColor()
+
+	# 	if col.isValid():
+	# 		self.frm.setStyleSheet("QWidget { background-color: %s }" % col.name())
 
 	# def showDialog(self):
 	# 	text, ok = QtWidgets.QInputDialog.getText(self, 'Input Dialog', 
