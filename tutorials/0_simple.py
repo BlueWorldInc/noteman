@@ -197,8 +197,30 @@ class Example(QtWidgets.QMainWindow):
 		# self.setLayout(vbox)
 		# vbox.addWidget(btn)
 
+		# File Dialog
+		self.textEdit = QtWidgets.QTextEdit()
+		self.setCentralWidget(self.textEdit)
+		self.statusBar()
+
+		openFile = QtGui.QAction(app_icon, 'Open', self)
+		openFile.setShortcut('Ctrl+O')
+		openFile.setStatusTip('Open new File')
+		openFile.triggered.connect(self.showDialog)
+		
+		menubar = self.menuBar()
+		fileMenu = menubar.addMenu('&File')
+		fileMenu.addAction(openFile)    
+
 		self.center()
 		self.show()
+
+	def showDialog(self):
+		fname, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file',
+		            '/home')
+		f = open(fname, 'r')
+		with f:
+			data = f.read()
+			self.textEdit.setText(data)
 
 	# def showDialog(self):
 	# 	ok, font = QtWidgets.QFontDialog.getFont()
