@@ -235,9 +235,34 @@ class Example(QtWidgets.QMainWindow):
 		# self.square.setGeometry(150, 20, 100, 100)
 		# self.square.setStyleSheet("QWidget { background-color: %s }" %  
         #     self.col.name())
+
+		# Slider
+
+		note_icons_file_path = "C:\\Users\\neo\\Documents\\CODE\\Python\\Noteman\\gui\\elegant_font\\images\\PNG\\"
+		vol_icon = note_icons_file_path + 'icon_vol-mute.png'
+
+		sld = QtWidgets.QSlider(QtCore.Qt.Horizontal, self)
+		sld.setFocusPolicy(QtCore.Qt.NoFocus)
+		sld.setGeometry(30, 40, 100, 30)
+		sld.valueChanged[int].connect(self.changeValue)
+		
+		self.label = QtWidgets.QLabel(self)
+		self.label.setPixmap(QtGui.QPixmap(vol_icon))
+		self.label.setGeometry(160, 40, 80, 30)
 		
 		self.center()
 		self.show()
+
+	def changeValue(self, value):
+		note_icons_file_path = "C:\\Users\\neo\\Documents\\CODE\\Python\\Noteman\\gui\\elegant_font\\images\\PNG\\"
+		if value == 0:
+			self.label.setPixmap(QtGui.QPixmap(note_icons_file_path + 'icon_vol-mute.png'))
+		elif value > 0 and value <= 30:
+			self.label.setPixmap(QtGui.QPixmap(note_icons_file_path + 'icon_volume-low.png'))
+		elif value > 30 and value < 80:
+			self.label.setPixmap(QtGui.QPixmap(note_icons_file_path + 'icon_volume-high.png'))
+		else:
+			self.label.setPixmap(QtGui.QPixmap(note_icons_file_path + 'icon_volume-high.png'))
 
 	# def setColor(self, pressed):
 	# 	source = self.sender()
