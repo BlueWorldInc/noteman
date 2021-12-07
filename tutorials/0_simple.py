@@ -250,38 +250,53 @@ class Example(QtWidgets.QMainWindow):
 		# self.label.setGeometry(160, 40, 80, 30)
 
 		# Progress Bar
-		self.pbar = QtWidgets.QProgressBar(self)
-		self.pbar.setGeometry(30, 40, 200, 25)
+		# self.pbar = QtWidgets.QProgressBar(self)
+		# self.pbar.setGeometry(30, 40, 200, 25)
 
-		self.btn = QtWidgets.QPushButton('Start', self)
-		self.btn.move(40, 80)
-		self.btn.clicked.connect(self.doAction)
+		# self.btn = QtWidgets.QPushButton('Start', self)
+		# self.btn.move(40, 80)
+		# self.btn.clicked.connect(self.doAction)
 
-		self.timer = QtCore.QBasicTimer()
-		self.step = 0
+		# self.timer = QtCore.QBasicTimer()
+		# self.step = 0
+
+		# Calendar Widget
+		cal = QtWidgets.QCalendarWidget(self)
+		cal.setGridVisible(True)
+		cal.move(20, 20)
+		cal.adjustSize()
+		cal.clicked[QtCore.QDate].connect(self.showDate)
+		
+		self.lbl = QtWidgets.QLabel(self)
+		date = cal.selectedDate()
+		self.lbl.setText(date.toString())
+		self.lbl.move(130, 260)
 		
 		self.center()
 		self.show()
 
-	def timerEvent(self, e):
-      
-		if self.step >= 100:
-			self.timer.stop()
-			self.btn.setText('Finished')
-			return
-		self.step = self.step + 1
-		self.pbar.setValue(self.step)
+	def showDate(self, date):     
+		self.lbl.setText(date.toString())
 
-	def doAction(self):
+	# def timerEvent(self, e):
+      
+	# 	if self.step >= 100:
+	# 		self.timer.stop()
+	# 		self.btn.setText('Finished')
+	# 		return
+	# 	self.step = self.step + 1
+	# 	self.pbar.setValue(self.step)
+
+	# def doAction(self):
 		
-		if self.timer.isActive():
-			self.timer.stop()
-			self.btn.setText('Start')
-		else:
-			if self.step >= 100:
-				return
-			self.timer.start(100, self)
-			self.btn.setText('Stop')
+	# 	if self.timer.isActive():
+	# 		self.timer.stop()
+	# 		self.btn.setText('Start')
+	# 	else:
+	# 		if self.step >= 100:
+	# 			return
+	# 		self.timer.start(100, self)
+	# 		self.btn.setText('Stop')
 
 	# def changeValue(self, value):
 	# 	note_icons_file_path = "C:\\Users\\neo\\Documents\\CODE\\Python\\Noteman\\gui\\elegant_font\\images\\PNG\\"
