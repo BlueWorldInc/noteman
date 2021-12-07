@@ -212,20 +212,56 @@ class Example(QtWidgets.QMainWindow):
 		# fileMenu.addAction(openFile)    
 
 		# CheckBox
-		cb = QtWidgets.QCheckBox('Show title', self)
-		cb.move(20, 20)
-		cb.toggle()
-		cb.stateChanged.connect(self.changeTitle)
+		# cb = QtWidgets.QCheckBox('Show title', self)
+		# cb.move(20, 20)
+		# cb.toggle()
+		# cb.stateChanged.connect(self.changeTitle)
+
+		# Toggle Button
+		# self.col = QtGui.QColor(0, 0, 0)       
+		# redb = QtWidgets.QPushButton('Red', self)
+		# redb.setCheckable(True)
+		# redb.move(10, 10)
+		# redb.clicked[bool].connect(self.setColor)
+		# greenb = QtWidgets.QPushButton('Green', self)
+		# greenb.setCheckable(True)
+		# greenb.move(10, 60)
+		# greenb.clicked[bool].connect(self.setColor)
+		# blueb = QtWidgets.QPushButton('Blue', self)
+		# blueb.setCheckable(True)
+		# blueb.move(10, 110)
+		# blueb.clicked[bool].connect(self.setColor)
+		# self.square = QtWidgets.QFrame(self)
+		# self.square.setGeometry(150, 20, 100, 100)
+		# self.square.setStyleSheet("QWidget { background-color: %s }" %  
+        #     self.col.name())
 		
 		self.center()
 		self.show()
 
-	def changeTitle(self, state):
+	# def setColor(self, pressed):
+	# 	source = self.sender()
+				
+	# 	if pressed:
+	# 		val = 255
+	# 	else: val = 0
+
+	# 	if source.text() == "Red":
+	# 		self.col.setRed(val)                
+	# 	elif source.text() == "Green":
+	# 		self.col.setGreen(val)             
+	# 	else:
+	# 		self.col.setBlue(val) 
+		
+	# 	self.square.setStyleSheet("QFrame { background-color: %s }" %
+    #         self.col.name())  
+
+	# def changeTitle(self, state):
       
-		if state == QtCore.Qt.Checked:
-			self.setWindowTitle('Checkbox')
-		else:
-			self.setWindowTitle('')
+	# 	if state == QtCore.Qt.Checked:
+	# 		self.setWindowTitle('Checkbox')
+	# 	else:
+	# 		self.setWindowTitle('')
 
 	# def showDialog(self):
 	# 	fname, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file',
