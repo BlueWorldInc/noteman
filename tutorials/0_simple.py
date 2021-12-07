@@ -32,19 +32,19 @@ class Example(QtWidgets.QMainWindow):
 		self.setWindowIcon(app_icon)
 
 		# Status Bar
-		self.statusBar().showMessage('Ready')
+		# self.statusBar().showMessage('Ready')
 
 		# Menu
-		exitAction = QtGui.QAction(app_icon, '&Exit', self)
-		aboutAction = QtGui.QAction(app_icon, '&About', self)
-		exitAction.setShortcut('Ctrl+Q')
-		exitAction.setStatusTip('Exit application')
-		exitAction.triggered.connect(self.close)
-		menubar = self.menuBar()
-		fileMenu = menubar.addMenu('&File')
-		helpMenu = menubar.addMenu('&Help')
-		helpMenu.addAction(aboutAction)
-		fileMenu.addAction(exitAction)
+		# exitAction = QtGui.QAction(app_icon, '&Exit', self)
+		# aboutAction = QtGui.QAction(app_icon, '&About', self)
+		# exitAction.setShortcut('Ctrl+Q')
+		# exitAction.setStatusTip('Exit application')
+		# exitAction.triggered.connect(self.close)
+		# menubar = self.menuBar()
+		# fileMenu = menubar.addMenu('&File')
+		# helpMenu = menubar.addMenu('&Help')
+		# helpMenu.addAction(aboutAction)
+		# fileMenu.addAction(exitAction)
 
 		# Toolbars
 		# exitAction = QtGui.QAction(app_icon, 'Exit', self)
@@ -54,9 +54,6 @@ class Example(QtWidgets.QMainWindow):
 		# self.toolbar.addAction(exitAction)
 		# self.toolbar.setFloatable(False)
 		# self.toolbar.setMovable(False)
-
-		self.setGeometry(300, 300, 250, 150)
-		self.setWindowTitle('Icon')
 
 		# TextEdit
 		# textEdit = QtWidgets.QTextEdit()
@@ -249,6 +246,27 @@ class Example(QtWidgets.QMainWindow):
 		# self.label.setPixmap(QtGui.QPixmap(vol_icon))
 		# self.label.setGeometry(160, 40, 80, 30)
 
+		# Slider picture
+		note_icons_file_path = "C:\\Users\\neo\\Pictures"
+		QtCore.QDir(note_icons_file_path).entryList()
+		self.label2 = QtWidgets.QLabel(self)
+		i = 0
+		y = 0
+		scale = 200
+		for x in QtCore.QDir(note_icons_file_path).entryList():
+			self.label = QtWidgets.QLabel(self)
+			pixmap = QtGui.QPixmap(note_icons_file_path + "\\" + x)
+			if not pixmap.isNull():
+				pixmap = pixmap.scaled(scale, scale)
+				self.label.setPixmap(pixmap)
+				self.label.setGeometry(pixmap.rect())
+				self.label.move(i * scale, y * scale)
+				i += 1
+				if (i * scale) == 1600:
+					i = 0
+					y += 1
+				# print(x)
+
 		# Progress Bar
 		# self.pbar = QtWidgets.QProgressBar(self)
 		# self.pbar.setGeometry(30, 40, 200, 25)
@@ -261,22 +279,25 @@ class Example(QtWidgets.QMainWindow):
 		# self.step = 0
 
 		# Calendar Widget
-		cal = QtWidgets.QCalendarWidget(self)
-		cal.setGridVisible(True)
-		cal.move(20, 20)
-		cal.adjustSize()
-		cal.clicked[QtCore.QDate].connect(self.showDate)
+		# cal = QtWidgets.QCalendarWidget(self)
+		# cal.setGridVisible(True)
+		# cal.move(20, 20)
+		# cal.adjustSize()
+		# cal.clicked[QtCore.QDate].connect(self.showDate)
 		
-		self.lbl = QtWidgets.QLabel(self)
-		date = cal.selectedDate()
-		self.lbl.setText(date.toString())
-		self.lbl.move(130, 260)
+		# self.lbl = QtWidgets.QLabel(self)
+		# date = cal.selectedDate()
+		# self.lbl.setText(date.toString())
+		# self.lbl.move(130, 260)
 		
+
+		# self.setGeometry(0, 0, 250, 150)
+		self.setWindowTitle('Icon')
 		self.center()
 		self.show()
 
-	def showDate(self, date):     
-		self.lbl.setText(date.toString())
+	# def showDate(self, date):     
+		# self.lbl.setText(date.toString())
 
 	# def timerEvent(self, e):
       
