@@ -237,32 +237,62 @@ class Example(QtWidgets.QMainWindow):
         #     self.col.name())
 
 		# Slider
+		# note_icons_file_path = "C:\\Users\\neo\\Documents\\CODE\\Python\\Noteman\\gui\\elegant_font\\images\\PNG\\"
+		# vol_icon = note_icons_file_path + 'icon_vol-mute.png'
 
-		note_icons_file_path = "C:\\Users\\neo\\Documents\\CODE\\Python\\Noteman\\gui\\elegant_font\\images\\PNG\\"
-		vol_icon = note_icons_file_path + 'icon_vol-mute.png'
-
-		sld = QtWidgets.QSlider(QtCore.Qt.Horizontal, self)
-		sld.setFocusPolicy(QtCore.Qt.NoFocus)
-		sld.setGeometry(30, 40, 100, 30)
-		sld.valueChanged[int].connect(self.changeValue)
+		# sld = QtWidgets.QSlider(QtCore.Qt.Horizontal, self)
+		# sld.setFocusPolicy(QtCore.Qt.NoFocus)
+		# sld.setGeometry(30, 40, 100, 30)
+		# sld.valueChanged[int].connect(self.changeValue)
 		
-		self.label = QtWidgets.QLabel(self)
-		self.label.setPixmap(QtGui.QPixmap(vol_icon))
-		self.label.setGeometry(160, 40, 80, 30)
+		# self.label = QtWidgets.QLabel(self)
+		# self.label.setPixmap(QtGui.QPixmap(vol_icon))
+		# self.label.setGeometry(160, 40, 80, 30)
+
+		# Progress Bar
+		self.pbar = QtWidgets.QProgressBar(self)
+		self.pbar.setGeometry(30, 40, 200, 25)
+
+		self.btn = QtWidgets.QPushButton('Start', self)
+		self.btn.move(40, 80)
+		self.btn.clicked.connect(self.doAction)
+
+		self.timer = QtCore.QBasicTimer()
+		self.step = 0
 		
 		self.center()
 		self.show()
 
-	def changeValue(self, value):
-		note_icons_file_path = "C:\\Users\\neo\\Documents\\CODE\\Python\\Noteman\\gui\\elegant_font\\images\\PNG\\"
-		if value == 0:
-			self.label.setPixmap(QtGui.QPixmap(note_icons_file_path + 'icon_vol-mute.png'))
-		elif value > 0 and value <= 30:
-			self.label.setPixmap(QtGui.QPixmap(note_icons_file_path + 'icon_volume-low.png'))
-		elif value > 30 and value < 80:
-			self.label.setPixmap(QtGui.QPixmap(note_icons_file_path + 'icon_volume-high.png'))
+	def timerEvent(self, e):
+      
+		if self.step >= 100:
+			self.timer.stop()
+			self.btn.setText('Finished')
+			return
+		self.step = self.step + 1
+		self.pbar.setValue(self.step)
+
+	def doAction(self):
+		
+		if self.timer.isActive():
+			self.timer.stop()
+			self.btn.setText('Start')
 		else:
-			self.label.setPixmap(QtGui.QPixmap(note_icons_file_path + 'icon_volume-high.png'))
+			if self.step >= 100:
+				return
+			self.timer.start(100, self)
+			self.btn.setText('Stop')
+
+	# def changeValue(self, value):
+	# 	note_icons_file_path = "C:\\Users\\neo\\Documents\\CODE\\Python\\Noteman\\gui\\elegant_font\\images\\PNG\\"
+	# 	if value == 0:
+	# 		self.label.setPixmap(QtGui.QPixmap(note_icons_file_path + 'icon_vol-mute.png'))
+	# 	elif value > 0 and value <= 30:
+	# 		self.label.setPixmap(QtGui.QPixmap(note_icons_file_path + 'icon_volume-low.png'))
+	# 	elif value > 30 and value < 80:
+	# 		self.label.setPixmap(QtGui.QPixmap(note_icons_file_path + 'icon_volume-high.png'))
+	# 	else:
+	# 		self.label.setPixmap(QtGui.QPixmap(note_icons_file_path + 'icon_volume-high.png'))
 
 	# def setColor(self, pressed):
 	# 	source = self.sender()
