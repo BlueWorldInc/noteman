@@ -198,29 +198,42 @@ class Example(QtWidgets.QMainWindow):
 		# vbox.addWidget(btn)
 
 		# File Dialog
-		self.textEdit = QtWidgets.QTextEdit()
-		self.setCentralWidget(self.textEdit)
-		self.statusBar()
+		# self.textEdit = QtWidgets.QTextEdit()
+		# self.setCentralWidget(self.textEdit)
+		# self.statusBar()
 
-		openFile = QtGui.QAction(app_icon, 'Open', self)
-		openFile.setShortcut('Ctrl+O')
-		openFile.setStatusTip('Open new File')
-		openFile.triggered.connect(self.showDialog)
+		# openFile = QtGui.QAction(app_icon, 'Open', self)
+		# openFile.setShortcut('Ctrl+O')
+		# openFile.setStatusTip('Open new File')
+		# openFile.triggered.connect(self.showDialog)
 		
-		menubar = self.menuBar()
-		fileMenu = menubar.addMenu('&File')
-		fileMenu.addAction(openFile)    
+		# menubar = self.menuBar()
+		# fileMenu = menubar.addMenu('&File')
+		# fileMenu.addAction(openFile)    
 
+		# CheckBox
+		cb = QtWidgets.QCheckBox('Show title', self)
+		cb.move(20, 20)
+		cb.toggle()
+		cb.stateChanged.connect(self.changeTitle)
+		
 		self.center()
 		self.show()
 
-	def showDialog(self):
-		fname, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file',
-		            '/home')
-		f = open(fname, 'r')
-		with f:
-			data = f.read()
-			self.textEdit.setText(data)
+	def changeTitle(self, state):
+      
+		if state == QtCore.Qt.Checked:
+			self.setWindowTitle('Checkbox')
+		else:
+			self.setWindowTitle('')
+
+	# def showDialog(self):
+	# 	fname, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file',
+	# 	            '/home')
+	# 	f = open(fname, 'r')
+	# 	with f:
+	# 		data = f.read()
+	# 		self.textEdit.setText(data)
 
 	# def showDialog(self):
 	# 	ok, font = QtWidgets.QFontDialog.getFont()
