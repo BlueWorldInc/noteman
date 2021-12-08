@@ -382,8 +382,9 @@ class Example(QtWidgets.QWidget):
 		# qe.setDragEnabled(True)
 		# qe.move(30, 65)
 
-		button = Button("Button", self)
-		button.move(190, 65)
+		self.button = Button("Button", self)
+		self.button.move(190, 65)
+		self.setAcceptDrops(True)
 
 		self.setGeometry(0, 0, 250, 150)
 		self.setWindowTitle('Icon')
@@ -396,8 +397,7 @@ class Example(QtWidgets.QWidget):
 	def dropEvent(self, e):
 		position = e.position()
 		self.button.move(position.toPoint())
-
-		e.setDropAction(QtCore.Qt.DropActions.MoveAction)
+		e.setDropAction(QtCore.Qt.MoveAction)
 		e.accept()
 
 	# def onActivated(self, text):
