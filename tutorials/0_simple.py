@@ -303,32 +303,51 @@ class Example(QtWidgets.QMainWindow):
 		# qle.textChanged[str].connect(self.onChanged)
 
 		# Splitter
-		hbox = QtWidgets.QHBoxLayout()
+		# hbox = QtWidgets.QHBoxLayout()
 
-		topleft = QtWidgets.QFrame(self)
-		topleft.setFrameShape(QtWidgets.QFrame.StyledPanel)
-		topright = QtWidgets.QFrame(self)
-		topright.setFrameShape(QtWidgets.QFrame.StyledPanel)
-		bottom = QtWidgets.QFrame(self)
-		bottom.setFrameShape(QtWidgets.QFrame.StyledPanel)
+		# topleft = QtWidgets.QFrame(self)
+		# topleft.setFrameShape(QtWidgets.QFrame.StyledPanel)
+		# topright = QtWidgets.QFrame(self)
+		# topright.setFrameShape(QtWidgets.QFrame.StyledPanel)
+		# bottom = QtWidgets.QFrame(self)
+		# bottom.setFrameShape(QtWidgets.QFrame.StyledPanel)
 
-		splitter1 = QtWidgets.QSplitter(QtCore.Qt.Horizontal)
-		splitter1.addWidget(topleft)
-		splitter1.addWidget(topright)
-		splitter2 = QtWidgets.QSplitter(QtCore.Qt.Vertical)
-		splitter2.addWidget(splitter1)
-		splitter2.addWidget(bottom)
+		# splitter1 = QtWidgets.QSplitter(QtCore.Qt.Horizontal)
+		# splitter1.addWidget(topleft)
+		# splitter1.addWidget(topright)
+		# splitter2 = QtWidgets.QSplitter(QtCore.Qt.Vertical)
+		# splitter2.addWidget(splitter1)
+		# splitter2.addWidget(bottom)
 
-		hbox.addWidget(splitter2)
-		widget = QtWidgets.QWidget()
-		widget.setLayout(hbox)
-		self.setCentralWidget(widget)
-		QtWidgets.QApplication.setStyle(QtWidgets.QStyleFactory.create('Cleanlooks'))
+		# hbox.addWidget(splitter2)
+		# widget = QtWidgets.QWidget()
+		# widget.setLayout(hbox)
+		# self.setCentralWidget(widget)
+		# QtWidgets.QApplication.setStyle(QtWidgets.QStyleFactory.create('Cleanlooks'))
+
+		# Combobox
+		self.lbl = QtWidgets.QLabel("Ubuntu", self)
+
+		combo = QtWidgets.QComboBox(self)
+		combo.addItem("Ubuntu")
+		combo.addItem("Mandriva")
+		combo.addItem("Fedora")
+		combo.addItem("Red Hat")
+		combo.addItem("Gentoo")
+
+		combo.move(50, 50)
+		self.lbl.move(50, 150)
+
+		combo.currentTextChanged.connect(self.onActivated)
 
 		self.setGeometry(0, 0, 250, 150)
 		self.setWindowTitle('Icon')
 		self.center()
 		self.show()
+
+	def onActivated(self, text):
+		self.lbl.setText(text)
+		self.lbl.adjustSize()  
 
 	# def onChanged(self, text):
 	# 	self.lbl.setText(text)
