@@ -19,31 +19,30 @@ class Communicate(QtCore.QObject):
 #     def dropEvent(self, e):
 #         self.setText(e.mimeData().text())
 
-class Button(QtWidgets.QPushButton):
+# class Button(QtWidgets.QPushButton):
 
-    def __init__(self, title, parent):
-        super().__init__(title, parent)
-
-
-    def mouseMoveEvent(self, e):
-        if e.buttons() != QtCore.Qt.RightButton:
-            return
-        mimeData = QtCore.QMimeData()
-
-        drag = QtGui.QDrag(self)
-        drag.setMimeData(mimeData)
-
-        drag.setHotSpot(e.position().toPoint() - self.rect().topLeft())
-
-        dropAction = drag.exec(QtCore.Qt.MoveAction)
+#     def __init__(self, title, parent):
+#         super().__init__(title, parent)
 
 
-    def mousePressEvent(self, e):
-        super().mousePressEvent(e)
-        if e.button() == QtCore.Qt.LeftButton:
-            print('press')
+#     def mouseMoveEvent(self, e):
+#         if e.buttons() != QtCore.Qt.RightButton:
+#             return
+#         mimeData = QtCore.QMimeData()
 
-class Example(QtWidgets.QWidget):
+#         drag = QtGui.QDrag(self)
+#         drag.setMimeData(mimeData)
+
+#         drag.setHotSpot(e.position().toPoint() - self.rect().topLeft())
+
+#         dropAction = drag.exec(QtCore.Qt.MoveAction)
+
+#     def mousePressEvent(self, e):
+#         super().mousePressEvent(e)
+#         if e.button() == QtCore.Qt.LeftButton:
+#             print('press')
+
+class Example(QtWidgets.QMainWindow):
 
 	def __init__(self):
 		super(Example, self).__init__()
@@ -378,27 +377,46 @@ class Example(QtWidgets.QWidget):
 
 		# combo.currentTextChanged.connect(self.onActivated)
 
+		# Drag and Drop
 		# qe = QtWidgets.QLineEdit('', self)
 		# qe.setDragEnabled(True)
 		# qe.move(30, 65)
 
-		self.button = Button("Button", self)
-		self.button.move(190, 65)
-		self.setAcceptDrops(True)
+		# Drag and Drop button
+		# self.button = Button("Button", self)
+		# self.button.move(190, 65)
+		# self.setAcceptDrops(True)
+
+		# Drawing Text
+		self.text = u'\u041b\u0435\u0432 \u041d\u0438\u043a\u043e\u043b\u0430\
+			\u0435\u0432\u0438\u0447 \u0422\u043e\u043b\u0441\u0442\u043e\u0439: \n\
+			\u0410\u043d\u043d\u0430 \u041a\u0430\u0440\u0435\u043d\u0438\u043d\u0430'
+
 
 		self.setGeometry(0, 0, 250, 150)
 		self.setWindowTitle('Icon')
 		self.center()
 		self.show()
 
-	def dragEnterEvent(self, e):
-		e.accept()
+	def paintEvent(self, event):
+		qp = QtGui.QPainter()
+		qp.begin(self)
+		self.drawText(event, qp)
+		qp.end()
+        
+	def drawText(self, event, qp):
+		qp.setPen(QtGui.QColor(168, 134, 13))
+		qp.setFont(QtGui.QFont('SansSerif', 10))
+		qp.drawText(event.rect(), QtCore.Qt.AlignCenter, self.text) 
+
+	# def dragEnterEvent(self, e):
+		# e.accept()
 	
-	def dropEvent(self, e):
-		position = e.position()
-		self.button.move(position.toPoint())
-		e.setDropAction(QtCore.Qt.MoveAction)
-		e.accept()
+	# def dropEvent(self, e):
+		# position = e.position()
+		# self.button.move(position.toPoint())
+		# e.setDropAction(QtCore.Qt.MoveAction)
+		# e.accept()
 
 	# def onActivated(self, text):
 		# self.lbl.setText(text)
