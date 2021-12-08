@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import sys
+import sys, random
 from PySide6 import QtWidgets, QtGui, QtCore
 
 class Communicate(QtCore.QObject):    
@@ -388,26 +388,44 @@ class Example(QtWidgets.QMainWindow):
 		# self.setAcceptDrops(True)
 
 		# Drawing Text
-		self.text = u'\u041b\u0435\u0432 \u041d\u0438\u043a\u043e\u043b\u0430\
-			\u0435\u0432\u0438\u0447 \u0422\u043e\u043b\u0441\u0442\u043e\u0439: \n\
-			\u0410\u043d\u043d\u0430 \u041a\u0430\u0440\u0435\u043d\u0438\u043d\u0430'
+		# self.text = u'\u041b\u0435\u0432 \u041d\u0438\u043a\u043e\u043b\u0430\
+		# 	\u0435\u0432\u0438\u0447 \u0422\u043e\u043b\u0441\u0442\u043e\u0439: \n\
+		# 	\u0410\u043d\u043d\u0430 \u041a\u0430\u0440\u0435\u043d\u0438\u043d\u0430'
 
+		# Drawing Points
+		self.timer = QtCore.QTimer(self)
+		self.timer.timeout.connect(self.update)
+		self.timer.start(1)
 
 		self.setGeometry(0, 0, 250, 150)
 		self.setWindowTitle('Icon')
 		self.center()
 		self.show()
 
-	def paintEvent(self, event):
-		qp = QtGui.QPainter()
-		qp.begin(self)
-		self.drawText(event, qp)
-		qp.end()
+	def paintEvent(self, e):
+			self.qp = QtGui.QPainter()
+			self.qp.begin(self)
+			self.drawPoints(self.qp)
+			self.qp.end()
+
+	def drawPoints(self, qp):
+		qp.setPen(QtCore.Qt.red)
+		size = self.size()
+		for i in range(1000):
+			x = random.randint(1, size.width()-1)
+			y = random.randint(1, size.height()-1)
+			qp.drawPoint(x, y)
+
+	# def paintEvent(self, event):
+	# 	qp = QtGui.QPainter()
+	# 	qp.begin(self)
+	# 	self.drawText(event, qp)
+	# 	qp.end()
         
-	def drawText(self, event, qp):
-		qp.setPen(QtGui.QColor(168, 134, 13))
-		qp.setFont(QtGui.QFont('SansSerif', 10))
-		qp.drawText(event.rect(), QtCore.Qt.AlignCenter, self.text) 
+	# def drawText(self, event, qp):
+	# 	qp.setPen(QtGui.QColor(168, 134, 13))
+	# 	qp.setFont(QtGui.QFont('SansSerif', 10))
+	# 	qp.drawText(event.rect(), QtCore.Qt.AlignCenter, self.text) 
 
 	# def dragEnterEvent(self, e):
 		# e.accept()
