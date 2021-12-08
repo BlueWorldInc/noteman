@@ -247,25 +247,25 @@ class Example(QtWidgets.QMainWindow):
 		# self.label.setGeometry(160, 40, 80, 30)
 
 		# Slider picture
-		note_icons_file_path = "C:\\Users\\neo\\Pictures"
-		QtCore.QDir(note_icons_file_path).entryList()
-		self.label2 = QtWidgets.QLabel(self)
-		i = 0
-		y = 0
-		scale = 200
-		for x in QtCore.QDir(note_icons_file_path).entryList():
-			self.label = QtWidgets.QLabel(self)
-			pixmap = QtGui.QPixmap(note_icons_file_path + "\\" + x)
-			if not pixmap.isNull():
-				pixmap = pixmap.scaled(scale, scale)
-				self.label.setPixmap(pixmap)
-				self.label.setGeometry(pixmap.rect())
-				self.label.move(i * scale, y * scale)
-				i += 1
-				if (i * scale) == 1600:
-					i = 0
-					y += 1
-				# print(x)
+		# note_icons_file_path = "C:\\Users\\neo\\Pictures"
+		# QtCore.QDir(note_icons_file_path).entryList()
+		# self.label2 = QtWidgets.QLabel(self)
+		# i = 0
+		# y = 0
+		# scale = 100
+		# for x in QtCore.QDir(note_icons_file_path).entryList():
+		# 	self.label = QtWidgets.QLabel(self)
+		# 	pixmap = QtGui.QPixmap(note_icons_file_path + "\\" + x)
+		# 	if not pixmap.isNull():
+		# 		pixmap = pixmap.scaled(scale, scale)
+		# 		self.label.setPixmap(pixmap)
+		# 		self.label.setGeometry(pixmap.rect())
+		# 		self.label.move(i * scale, y * scale)
+		# 		i += 1
+		# 		if (i * scale) == 1600:
+		# 			i = 0
+		# 			y += 1
+		# 		# print(x)
 
 		# Progress Bar
 		# self.pbar = QtWidgets.QProgressBar(self)
@@ -289,12 +289,29 @@ class Example(QtWidgets.QMainWindow):
 		# date = cal.selectedDate()
 		# self.lbl.setText(date.toString())
 		# self.lbl.move(130, 260)
-		
+
+		# Pixmap Widget
+		pixmap = QtGui.QPixmap(note_icons_file_path + "\\notes16x16.png")
+		lbl = QtWidgets.QLabel(self)
+		lbl.setPixmap(pixmap)
+
+		# LineEdit Widget
+		self.lbl = QtWidgets.QLabel(self)
+		qle = QtWidgets.QLineEdit(self)
+				
+		qle.move(60, 100)
+		self.lbl.move(60, 40)
+
+		qle.textChanged[str].connect(self.onChanged)
 
 		# self.setGeometry(0, 0, 250, 150)
 		self.setWindowTitle('Icon')
 		self.center()
 		self.show()
+
+	def onChanged(self, text):
+		self.lbl.setText(text)
+		self.lbl.adjustSize() 
 
 	# def showDate(self, date):     
 		# self.lbl.setText(date.toString())
