@@ -5,21 +5,45 @@ from PySide6 import QtWidgets, QtGui, QtCore
 class Communicate(QtCore.QObject):    
     closeApp = QtCore.Signal()
 
+# class Button(QtWidgets.QPushButton):
+#     def __init__(self, title, parent):
+#         super(Button, self).__init__(title, parent)
+#         self.setAcceptDrops(True)
+
+#     def dragEnterEvent(self, e):
+#         if e.mimeData().hasFormat('text/plain'):
+#             e.accept()
+#         else:
+#             e.ignore() 
+
+#     def dropEvent(self, e):
+#         self.setText(e.mimeData().text())
+
 class Button(QtWidgets.QPushButton):
+
     def __init__(self, title, parent):
-        super(Button, self).__init__(title, parent)
-        self.setAcceptDrops(True)
+        super().__init__(title, parent)
 
-    def dragEnterEvent(self, e):
-        if e.mimeData().hasFormat('text/plain'):
-            e.accept()
-        else:
-            e.ignore() 
 
-    def dropEvent(self, e):
-        self.setText(e.mimeData().text())
+    def mouseMoveEvent(self, e):
+        if e.buttons() != QtCore.Qt.RightButton:
+            return
+        mimeData = QtCore.QMimeData()
 
-class Example(QtWidgets.QMainWindow):
+        drag = QtGui.QDrag(self)
+        drag.setMimeData(mimeData)
+
+        drag.setHotSpot(e.position().toPoint() - self.rect().topLeft())
+
+        dropAction = drag.exec(QtCore.Qt.MoveAction)
+
+
+    def mousePressEvent(self, e):
+        super().mousePressEvent(e)
+        if e.button() == QtCore.Qt.LeftButton:
+            print('press')
+
+class Example(QtWidgets.QWidget):
 
 	def __init__(self):
 		super(Example, self).__init__()
@@ -354,9 +378,9 @@ class Example(QtWidgets.QMainWindow):
 
 		# combo.currentTextChanged.connect(self.onActivated)
 
-		qe = QtWidgets.QLineEdit('', self)
-		qe.setDragEnabled(True)
-		qe.move(30, 65)
+		# qe = QtWidgets.QLineEdit('', self)
+		# qe.setDragEnabled(True)
+		# qe.move(30, 65)
 
 		button = Button("Button", self)
 		button.move(190, 65)
@@ -365,6 +389,16 @@ class Example(QtWidgets.QMainWindow):
 		self.setWindowTitle('Icon')
 		self.center()
 		self.show()
+
+	def dragEnterEvent(self, e):
+		e.accept()
+	
+	def dropEvent(self, e):
+		position = e.position()
+		self.button.move(position.toPoint())
+
+		e.setDropAction(QtCore.Qt.DropActions.MoveAction)
+		e.accept()
 
 	# def onActivated(self, text):
 		# self.lbl.setText(text)
