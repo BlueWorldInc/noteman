@@ -5,6 +5,20 @@ from PySide6 import QtWidgets, QtGui, QtCore
 class Communicate(QtCore.QObject):    
     closeApp = QtCore.Signal()
 
+class Button(QtWidgets.QPushButton):
+    def __init__(self, title, parent):
+        super(Button, self).__init__(title, parent)
+        self.setAcceptDrops(True)
+
+    def dragEnterEvent(self, e):
+        if e.mimeData().hasFormat('text/plain'):
+            e.accept()
+        else:
+            e.ignore() 
+
+    def dropEvent(self, e):
+        self.setText(e.mimeData().text())
+
 class Example(QtWidgets.QMainWindow):
 
 	def __init__(self):
@@ -326,28 +340,35 @@ class Example(QtWidgets.QMainWindow):
 		# QtWidgets.QApplication.setStyle(QtWidgets.QStyleFactory.create('Cleanlooks'))
 
 		# Combobox
-		self.lbl = QtWidgets.QLabel("Ubuntu", self)
+		# self.lbl = QtWidgets.QLabel("Ubuntu", self)
 
-		combo = QtWidgets.QComboBox(self)
-		combo.addItem("Ubuntu")
-		combo.addItem("Mandriva")
-		combo.addItem("Fedora")
-		combo.addItem("Red Hat")
-		combo.addItem("Gentoo")
+		# combo = QtWidgets.QComboBox(self)
+		# combo.addItem("Ubuntu")
+		# combo.addItem("Mandriva")
+		# combo.addItem("Fedora")
+		# combo.addItem("Red Hat")
+		# combo.addItem("Gentoo")
 
-		combo.move(50, 50)
-		self.lbl.move(50, 150)
+		# combo.move(50, 50)
+		# self.lbl.move(50, 150)
 
-		combo.currentTextChanged.connect(self.onActivated)
+		# combo.currentTextChanged.connect(self.onActivated)
+
+		qe = QtWidgets.QLineEdit('', self)
+		qe.setDragEnabled(True)
+		qe.move(30, 65)
+
+		button = Button("Button", self)
+		button.move(190, 65)
 
 		self.setGeometry(0, 0, 250, 150)
 		self.setWindowTitle('Icon')
 		self.center()
 		self.show()
 
-	def onActivated(self, text):
-		self.lbl.setText(text)
-		self.lbl.adjustSize()  
+	# def onActivated(self, text):
+		# self.lbl.setText(text)
+		# self.lbl.adjustSize()  
 
 	# def onChanged(self, text):
 	# 	self.lbl.setText(text)
