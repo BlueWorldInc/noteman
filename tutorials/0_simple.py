@@ -291,27 +291,48 @@ class Example(QtWidgets.QMainWindow):
 		# self.lbl.move(130, 260)
 
 		# Pixmap Widget
-		pixmap = QtGui.QPixmap(note_icons_file_path + "\\notes16x16.png")
-		lbl = QtWidgets.QLabel(self)
-		lbl.setPixmap(pixmap)
+		# pixmap = QtGui.QPixmap(note_icons_file_path + "\\notes16x16.png")
+		# lbl = QtWidgets.QLabel(self)
+		# lbl.setPixmap(pixmap)
 
 		# LineEdit Widget
-		self.lbl = QtWidgets.QLabel(self)
-		qle = QtWidgets.QLineEdit(self)
-				
-		qle.move(60, 100)
-		self.lbl.move(60, 40)
+		# self.lbl = QtWidgets.QLabel(self)
+		# qle = QtWidgets.QLineEdit(self)
+		# qle.move(60, 100)
+		# self.lbl.move(60, 40)
+		# qle.textChanged[str].connect(self.onChanged)
 
-		qle.textChanged[str].connect(self.onChanged)
+		# Splitter
+		hbox = QtWidgets.QHBoxLayout()
 
-		# self.setGeometry(0, 0, 250, 150)
+		topleft = QtWidgets.QFrame(self)
+		topleft.setFrameShape(QtWidgets.QFrame.StyledPanel)
+		topright = QtWidgets.QFrame(self)
+		topright.setFrameShape(QtWidgets.QFrame.StyledPanel)
+		bottom = QtWidgets.QFrame(self)
+		bottom.setFrameShape(QtWidgets.QFrame.StyledPanel)
+
+		splitter1 = QtWidgets.QSplitter(QtCore.Qt.Horizontal)
+		splitter1.addWidget(topleft)
+		splitter1.addWidget(topright)
+		splitter2 = QtWidgets.QSplitter(QtCore.Qt.Vertical)
+		splitter2.addWidget(splitter1)
+		splitter2.addWidget(bottom)
+
+		hbox.addWidget(splitter2)
+		widget = QtWidgets.QWidget()
+		widget.setLayout(hbox)
+		self.setCentralWidget(widget)
+		QtWidgets.QApplication.setStyle(QtWidgets.QStyleFactory.create('Cleanlooks'))
+
+		self.setGeometry(0, 0, 250, 150)
 		self.setWindowTitle('Icon')
 		self.center()
 		self.show()
 
-	def onChanged(self, text):
-		self.lbl.setText(text)
-		self.lbl.adjustSize() 
+	# def onChanged(self, text):
+	# 	self.lbl.setText(text)
+	# 	self.lbl.adjustSize() 
 
 	# def showDate(self, date):     
 		# self.lbl.setText(date.toString())
