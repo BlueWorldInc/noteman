@@ -400,11 +400,16 @@ class Example(QtWidgets.QMainWindow):
 		# Drawing Colors
 
 		# Drawing Lines
+		sld = QtWidgets.QSlider(QtCore.Qt.Horizontal, self)
+		sld.setFocusPolicy(QtCore.Qt.NoFocus)
+		sld.setGeometry(20, 270, 200, 10)
+		sld.setMaximum(10)
+		self.lineSize = 2
+		sld.valueChanged[int].connect(self.changeLineSize)
 
 		# Drawing Brush
 
-
-		self.setGeometry(0, 0, 250, 150)
+		self.setGeometry(0, 0, 550, 450)
 		self.setWindowTitle('Icon')
 		self.center()
 		self.show()
@@ -412,77 +417,82 @@ class Example(QtWidgets.QMainWindow):
 	def paintEvent(self, e):
 		qp = QtGui.QPainter()
 		qp.begin(self)
-		# self.drawLines(qp)
-		self.drawBrushes(qp)
+		self.drawLines(qp)
+		# self.drawBrushes(qp)
 		qp.end()
 
-	def drawBrushes(self, qp):
+	def changeLineSize(self, value):
+		print (value)
+		self.lineSize = value
+		self.update()
+
+	# def drawBrushes(self, qp):
       
-		brush = QtGui.QBrush(QtCore.Qt.SolidPattern)
-		qp.setBrush(brush)
-		qp.drawRect(10, 15, 90, 60)
-		
-		brush.setStyle(QtCore.Qt.Dense1Pattern)
-		qp.setBrush(brush)
-		qp.drawRect(130, 15, 90, 60)
-		
-		brush.setStyle(QtCore.Qt.Dense2Pattern)
-		qp.setBrush(brush)
-		qp.drawRect(250, 15, 90, 60)
-		
-		brush.setStyle(QtCore.Qt.Dense3Pattern)
-		qp.setBrush(brush)
-		qp.drawRect(10, 105, 90, 60)
-		
-		brush.setStyle(QtCore.Qt.DiagCrossPattern)
-		qp.setBrush(brush)
-		qp.drawRect(10, 105, 90, 60)
-		
-		brush.setStyle(QtCore.Qt.Dense5Pattern)
-		qp.setBrush(brush)
-		qp.drawRect(130, 105, 90, 60)
-		
-		brush.setStyle(QtCore.Qt.Dense6Pattern)
-		qp.setBrush(brush)
-		qp.drawRect(250, 105, 90, 60)
-		
-		brush.setStyle(QtCore.Qt.HorPattern)
-		qp.setBrush(brush)
-		qp.drawRect(10, 195, 90, 60)
-		
-		brush.setStyle(QtCore.Qt.VerPattern)
-		qp.setBrush(brush)
-		qp.drawRect(130, 195, 90, 60)
-		
-		brush.setStyle(QtCore.Qt.BDiagPattern)
-		qp.setBrush(brush)
-		qp.drawRect(250, 195, 90, 60)
+	# 	brush = QtGui.QBrush(QtCore.Qt.SolidPattern)
+	# 	qp.setBrush(brush)
+	# 	qp.drawRect(10, 15, 90, 60)
 
-	# def drawLines(self, qp):
-	# 	pen = QtGui.QPen(QtCore.Qt.black, 2, QtCore.Qt.SolidLine)
-	# 	qp.setPen(pen)
-	# 	qp.drawLine(20, 40, 250, 40)
+	# 	brush.setStyle(QtCore.Qt.Dense1Pattern)
+	# 	qp.setBrush(brush)
+	# 	qp.drawRect(130, 15, 90, 60)
 
-	# 	pen.setStyle(QtCore.Qt.DashLine)
-	# 	qp.setPen(pen)
-	# 	qp.drawLine(20, 80, 250, 80)
+	# 	brush.setStyle(QtCore.Qt.Dense2Pattern)
+	# 	qp.setBrush(brush)
+	# 	qp.drawRect(250, 15, 90, 60)
 
-	# 	pen.setStyle(QtCore.Qt.DashDotLine)
-	# 	qp.setPen(pen)
-	# 	qp.drawLine(20, 120, 250, 120)
+	# 	brush.setStyle(QtCore.Qt.Dense3Pattern)
+	# 	qp.setBrush(brush)
+	# 	qp.drawRect(10, 105, 90, 60)
 
-	# 	pen.setStyle(QtCore.Qt.DotLine)
-	# 	qp.setPen(pen)
-	# 	qp.drawLine(20, 160, 250, 160)
+	# 	brush.setStyle(QtCore.Qt.DiagCrossPattern)
+	# 	qp.setBrush(brush)
+	# 	qp.drawRect(10, 105, 90, 60)
 
-	# 	pen.setStyle(QtCore.Qt.DashDotDotLine)
-	# 	qp.setPen(pen)
-	# 	qp.drawLine(20, 200, 250, 200)
+	# 	brush.setStyle(QtCore.Qt.Dense5Pattern)
+	# 	qp.setBrush(brush)
+	# 	qp.drawRect(130, 105, 90, 60)
 
-	# 	pen.setStyle(QtCore.Qt.CustomDashLine)
-	# 	pen.setDashPattern([1, 4, 5, 4])
-	# 	qp.setPen(pen)
-	# 	qp.drawLine(20, 240, 250, 240)
+	# 	brush.setStyle(QtCore.Qt.Dense6Pattern)
+	# 	qp.setBrush(brush)
+	# 	qp.drawRect(250, 105, 90, 60)
+
+	# 	brush.setStyle(QtCore.Qt.HorPattern)
+	# 	qp.setBrush(brush)
+	# 	qp.drawRect(10, 195, 90, 60)
+
+	# 	brush.setStyle(QtCore.Qt.VerPattern)
+	# 	qp.setBrush(brush)
+	# 	qp.drawRect(130, 195, 90, 60)
+
+	# 	brush.setStyle(QtCore.Qt.BDiagPattern)
+	# 	qp.setBrush(brush)
+	# 	qp.drawRect(250, 195, 90, 60)
+
+	def drawLines(self, qp):
+		pen = QtGui.QPen(QtCore.Qt.black, self.lineSize, QtCore.Qt.SolidLine)
+		qp.setPen(pen)
+		qp.drawLine(20, 40, 250, 40)
+
+		pen.setStyle(QtCore.Qt.DashLine)
+		qp.setPen(pen)
+		qp.drawLine(20, 80, 250, 80)
+
+		pen.setStyle(QtCore.Qt.DashDotLine)
+		qp.setPen(pen)
+		qp.drawLine(20, 120, 250, 120)
+
+		pen.setStyle(QtCore.Qt.DotLine)
+		qp.setPen(pen)
+		qp.drawLine(20, 160, 250, 160)
+
+		pen.setStyle(QtCore.Qt.DashDotDotLine)
+		qp.setPen(pen)
+		qp.drawLine(20, 200, 250, 200)
+
+		pen.setStyle(QtCore.Qt.CustomDashLine)
+		pen.setDashPattern([1, 4, 5, 4])
+		qp.setPen(pen)
+		qp.drawLine(20, 240, 250, 240)
 	
 	# def paintEvent(self, e):
 		# qp = QtGui.QPainter()
