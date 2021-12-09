@@ -404,26 +404,57 @@ class Example(QtWidgets.QMainWindow):
 		self.center()
 		self.show()
 
-	
 	def paintEvent(self, e):
 		qp = QtGui.QPainter()
 		qp.begin(self)
-		self.drawRectangles(qp)
+		self.drawLines(qp)
 		qp.end()
 
-	def drawRectangles(self, qp):
-		color = QtGui.QColor(0, 0, 0)
-		color.setNamedColor('#d4d4d4')
-		qp.setPen(color)
+	def drawLines(self, qp):
+		pen = QtGui.QPen(QtCore.Qt.black, 2, QtCore.Qt.SolidLine)
+		qp.setPen(pen)
+		qp.drawLine(20, 40, 250, 40)
 
-		qp.setBrush(QtGui.QColor(200, 0, 0))
-		qp.drawRect(10, 15, 90, 60)
+		pen.setStyle(QtCore.Qt.DashLine)
+		qp.setPen(pen)
+		qp.drawLine(20, 80, 250, 80)
 
-		qp.setBrush(QtGui.QColor(255, 80, 0, 160))
-		qp.drawRect(130, 15, 90, 60)
+		pen.setStyle(QtCore.Qt.DashDotLine)
+		qp.setPen(pen)
+		qp.drawLine(20, 120, 250, 120)
 
-		qp.setBrush(QtGui.QColor(25, 0, 90, 200))
-		qp.drawRect(250, 15, 90, 60)
+		pen.setStyle(QtCore.Qt.DotLine)
+		qp.setPen(pen)
+		qp.drawLine(20, 160, 250, 160)
+
+		pen.setStyle(QtCore.Qt.DashDotDotLine)
+		qp.setPen(pen)
+		qp.drawLine(20, 200, 250, 200)
+
+		pen.setStyle(QtCore.Qt.CustomDashLine)
+		pen.setDashPattern([1, 4, 5, 4])
+		qp.setPen(pen)
+		qp.drawLine(20, 240, 250, 240)
+	
+	# def paintEvent(self, e):
+		# qp = QtGui.QPainter()
+		# qp.begin(self)
+		# self.drawRectangles(qp)
+		# qp.end()
+
+	# def drawRectangles(self, qp):
+		# color = QtGui.QColor(0, 0, 0)
+		# color.setNamedColor('#d4d4d4')
+		# qp.setPen(color)
+
+		# qp.setBrush(QtGui.QColor(200, 0, 0))
+		# qp.drawRect(10, 15, 90, 60)
+
+		# qp.setBrush(QtGui.QColor(255, 80, 0, 160))
+		# qp.drawRect(130, 15, 90, 60)
+
+		# qp.setBrush(QtGui.QColor(25, 0, 90, 200))
+		# qp.drawRect(250, 15, 90, 60)
 
 	# def paintEvent(self, e):
 			# self.qp = QtGui.QPainter()
