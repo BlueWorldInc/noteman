@@ -398,6 +398,8 @@ class Example(QtWidgets.QMainWindow):
 		# self.timer.start(1)
 
 		# Drawing Colors
+		# self.lbl = QtWidgets.QLabel('Colors Fusion', self)
+		# self.lbl.move(160, 20)
 
 		# Drawing Lines
 		# sld = QtWidgets.QSlider(QtCore.Qt.Horizontal, self)
@@ -408,6 +410,18 @@ class Example(QtWidgets.QMainWindow):
 		# sld.valueChanged[int].connect(self.changeLineSize)
 
 		# Drawing Brush
+		self.brushs = [QtCore.Qt.SolidPattern, QtCore.Qt.Dense1Pattern, QtCore.Qt.Dense2Pattern, QtCore.Qt.Dense3Pattern, QtCore.Qt.DiagCrossPattern, QtCore.Qt.Dense5Pattern, QtCore.Qt.Dense6Pattern, QtCore.Qt.HorPattern, QtCore.Qt.VerPattern, QtCore.Qt.BDiagPattern]
+		self.currentBrush = 1
+		self.brush = QtGui.QBrush(self.brushs[self.currentBrush])
+
+		self.leftArrowBtn = QtWidgets.QPushButton("<", self)
+		self.leftArrowBtn.move(130, 265)
+		self.leftArrowBtn.setFixedWidth(30)
+		self.leftArrowBtn.clicked.connect(self.drawChange)
+		self.rightArrowBtn = QtWidgets.QPushButton(">", self)
+		self.rightArrowBtn.move(190, 265)
+		self.rightArrowBtn.setFixedWidth(30)
+		self.rightArrowBtn.clicked.connect(self.drawChange)
 
 		self.setGeometry(0, 0, 550, 450)
 		self.setWindowTitle('Icon')
@@ -417,30 +431,47 @@ class Example(QtWidgets.QMainWindow):
 	def paintEvent(self, e):
 		qp = QtGui.QPainter()
 		qp.begin(self)
-		self.drawCircle(qp)
+		# self.drawCircle(qp)
 		# self.drawLines(qp)
-		# self.drawBrushes(qp)
+		self.drawBigBrushes(qp)
 		qp.end()
 
-	def drawCircle(self, qp):
-		qp.setPen(QtCore.Qt.NoPen)
+	# def drawCircle(self, qp):
+	# 	qp.setPen(QtCore.Qt.NoPen)
 
-		qp.setBrush(QtGui.QColor(0, 255, 0, 200))
-		qp.drawEllipse(180, 100, 100, 100)
+	# 	qp.setBrush(QtGui.QColor(0, 255, 0, 200))
+	# 	qp.drawEllipse(180, 100, 100, 100)
 
-		qp.setBrush(QtGui.QColor(0, 0, 255, 200))
-		qp.drawEllipse(100, 100, 100, 100)
+	# 	qp.setBrush(QtGui.QColor(0, 0, 255, 200))
+	# 	qp.drawEllipse(100, 100, 100, 100)
 
-		qp.setBrush(QtGui.QColor(255, 0, 0, 200))
-		qp.drawEllipse(140, 140, 100, 100)
+	# 	qp.setBrush(QtGui.QColor(255, 0, 0, 200))
+	# 	qp.drawEllipse(140, 140, 100, 100)
 
 	# def changeLineSize(self, value):
 	# 	print (value)
 	# 	self.lineSize = value
 	# 	self.update()
 
+	def drawChange(self):
+		if (self.sender().text() == ">"):
+			if (self.currentBrush + 1 == len(self.brushs)):
+				self.currentBrush = 0
+			else:
+				self.currentBrush += 1
+		else:
+			if (self.currentBrush == 0):
+				self.currentBrush = len(self.brushs) - 1
+			else:
+				self.currentBrush -= 1
+
+		self.update()
+
+	# def drawBigBrushes(self, qp):
+	# 	qp.setBrush(self.brushs[self.currentBrush])
+	# 	qp.drawRect(30, 50, 300, 200)
+
 	# def drawBrushes(self, qp):
-      
 	# 	brush = QtGui.QBrush(QtCore.Qt.SolidPattern)
 	# 	qp.setBrush(brush)
 	# 	qp.drawRect(10, 15, 90, 60)
