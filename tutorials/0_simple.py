@@ -393,28 +393,51 @@ class Example(QtWidgets.QMainWindow):
 		# 	\u0410\u043d\u043d\u0430 \u041a\u0430\u0440\u0435\u043d\u0438\u043d\u0430'
 
 		# Drawing Points
-		self.timer = QtCore.QTimer(self)
-		self.timer.timeout.connect(self.update)
-		self.timer.start(1)
+		# self.timer = QtCore.QTimer(self)
+		# self.timer.timeout.connect(self.update)
+		# self.timer.start(1)
+
+		# Drawing Colors
 
 		self.setGeometry(0, 0, 250, 150)
 		self.setWindowTitle('Icon')
 		self.center()
 		self.show()
 
+	
 	def paintEvent(self, e):
-			self.qp = QtGui.QPainter()
-			self.qp.begin(self)
-			self.drawPoints(self.qp)
-			self.qp.end()
+		qp = QtGui.QPainter()
+		qp.begin(self)
+		self.drawRectangles(qp)
+		qp.end()
 
-	def drawPoints(self, qp):
-		qp.setPen(QtCore.Qt.red)
-		size = self.size()
-		for i in range(1000):
-			x = random.randint(1, size.width()-1)
-			y = random.randint(1, size.height()-1)
-			qp.drawPoint(x, y)
+	def drawRectangles(self, qp):
+		color = QtGui.QColor(0, 0, 0)
+		color.setNamedColor('#d4d4d4')
+		qp.setPen(color)
+
+		qp.setBrush(QtGui.QColor(200, 0, 0))
+		qp.drawRect(10, 15, 90, 60)
+
+		qp.setBrush(QtGui.QColor(255, 80, 0, 160))
+		qp.drawRect(130, 15, 90, 60)
+
+		qp.setBrush(QtGui.QColor(25, 0, 90, 200))
+		qp.drawRect(250, 15, 90, 60)
+
+	# def paintEvent(self, e):
+			# self.qp = QtGui.QPainter()
+			# self.qp.begin(self)
+			# self.drawPoints(self.qp)
+			# self.qp.end()
+
+	# def drawPoints(self, qp):
+		# qp.setPen(QtCore.Qt.red)
+		# size = self.size()
+		# for i in range(1000):
+			# x = random.randint(1, size.width()-1)
+			# y = random.randint(1, size.height()-1)
+			# qp.drawPoint(x, y)
 
 	# def paintEvent(self, event):
 	# 	qp = QtGui.QPainter()
