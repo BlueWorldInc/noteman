@@ -3,7 +3,68 @@ import sys, random
 from PySide6 import QtWidgets, QtGui, QtCore
 
 class Communicate(QtCore.QObject):    
-    closeApp = QtCore.Signal()
+	# closeApp = QtCore.Signal()
+	updateBW = QtCore.Signal(int)
+
+class BurningWidget(QtWidgets.QWidget):
+
+	def __init__(self):
+		super(BurningWidget, self).__init__()
+		self.initUI()
+
+	def initUI(self):
+		self.setMinimumSize(1, 30)
+		self.value = 75
+		self.num = [75, 150, 225, 375, 450, 525, 600, 675]
+
+	def setValue(self, value):
+		self.value = value
+	
+	def paintEvent(self, e):
+		qp = QtGui.QPainter()
+		qp.begin(self)
+		self.drawWidget(qp)
+		qp.end()
+
+	def drawWidget(self, qp):
+		font = QtGui.QFont('Serif', 7, QtGui.QFont.Light)
+		qp.setFont(font)
+
+		size = self.size()
+		w = size.width()
+		h = size.height()
+		step = int(round(w / 10.0))
+
+		till = int(((w / 750.0) * self.value))
+		full = int(((w / 750.0) * 700))
+
+		if self.value >= 700:
+			qp.setPen(QtGui.QColor(255, 255, 255))
+			qp.setBrush(QtGui.QCloseEvent(255, 255, 184))
+			qp.drawRect(0, 0, full, h)
+			qp.setPen(QtGui.QColor(255, 175, 175))
+			qp.setBrush(QtGui.QColor(255, 175, 175))
+			qp.drawRect(full, 0, till-full, h)
+		else:
+			qp.setPen(QtGui.QColor(255, 255, 255))
+			qp.setBrush(QtGui.QColor(255, 255, 184))
+			qp.drawRect(0, 0, till, h)
+
+		pen = QtGui.QPen(QtGui.QColor(20, 20, 20), 1,
+			QtCore.Qt.SolidLine)
+
+		qp.setPen(pen)
+		qp.setBrush(QtCore.Qt.NoBrush)
+		qp.drawRect(0, 0, w-1, h-1)
+
+		j = 0
+
+		for i in range(step, 10 * step, step):
+			qp.drawLine(i, 0, i, 5)
+			metrics = qp.fontMetrics()
+			fw = metrics.width(str(self.num[j]))
+			qp.drawText(i - fw / 2, h / 2, str(self.num[j]))
+			j = j + 1
 
 # class Button(QtWidgets.QPushButton):
 #     def __init__(self, title, parent):
@@ -409,32 +470,58 @@ class Example(QtWidgets.QMainWindow):
 		# self.lineSize = 2
 		# sld.valueChanged[int].connect(self.changeLineSize)
 
-		# Drawing Brush
-		self.brushs = [QtCore.Qt.SolidPattern, QtCore.Qt.Dense1Pattern, QtCore.Qt.Dense2Pattern, QtCore.Qt.Dense3Pattern, QtCore.Qt.DiagCrossPattern, QtCore.Qt.Dense5Pattern, QtCore.Qt.Dense6Pattern, QtCore.Qt.HorPattern, QtCore.Qt.VerPattern, QtCore.Qt.BDiagPattern]
-		self.currentBrush = 1
-		self.brush = QtGui.QBrush(self.brushs[self.currentBrush])
+		# # Drawing Brush
+		# self.brushs = [QtCore.Qt.SolidPattern, QtCore.Qt.Dense1Pattern, QtCore.Qt.Dense2Pattern, QtCore.Qt.Dense3Pattern, QtCore.Qt.DiagCrossPattern, QtCore.Qt.Dense5Pattern, QtCore.Qt.Dense6Pattern, QtCore.Qt.HorPattern, QtCore.Qt.VerPattern, QtCore.Qt.BDiagPattern]
+		# self.currentBrush = 1
+		# self.brush = QtGui.QBrush(self.brushs[self.currentBrush])
 
-		self.leftArrowBtn = QtWidgets.QPushButton("<", self)
-		self.leftArrowBtn.move(130, 265)
-		self.leftArrowBtn.setFixedWidth(30)
-		self.leftArrowBtn.clicked.connect(self.drawChange)
-		self.rightArrowBtn = QtWidgets.QPushButton(">", self)
-		self.rightArrowBtn.move(190, 265)
-		self.rightArrowBtn.setFixedWidth(30)
-		self.rightArrowBtn.clicked.connect(self.drawChange)
+		# self.leftArrowBtn = QtWidgets.QPushButton("<", self)
+		# self.leftArrowBtn.move(130, 265)
+		# self.leftArrowBtn.setFixedWidth(30)
+		# self.leftArrowBtn.clicked.connect(self.drawChange)
+		# self.rightArrowBtn = QtWidgets.QPushButton(">", self)
+		# self.rightArrowBtn.move(190, 265)
+		# self.rightArrowBtn.setFixedWidth(30)
+		# self.rightArrowBtn.clicked.connect(self.drawChange)
+
+		# Custom Widget
+		sld = QtWidgets.QSlider(QtCore.Qt.Horizontal, self)
+		sld.setFocusPolicy(QtCore.Qt.NoFocus)
+		sld.setRange(1, 750)
+		sld.setValue(75)
+		sld.setGeometry(30, 40, 150, 30)
+
+		self.c = Communicate()
+		self.wid = BurningWidget()
+		self.c.updateBW[int].connect(self.wid.setValue)
+
+		sld.valueChanged[int].connect(self.changeValue)
+		hbox = QtWidgets.QHBoxLayout()
+		hbox.addWidget(self.wid)
+		vbox = QtWidgets.QVBoxLayout()
+		vbox.addStretch(1)
+		vbox.addLayout(hbox)
+
+		widget = QtWidgets.QWidget()
+		widget.setLayout(vbox)
+		self.setCentralWidget(widget)
 
 		self.setGeometry(0, 0, 550, 450)
 		self.setWindowTitle('Icon')
 		self.center()
 		self.show()
 
-	def paintEvent(self, e):
-		qp = QtGui.QPainter()
-		qp.begin(self)
-		# self.drawCircle(qp)
-		# self.drawLines(qp)
-		self.drawBigBrushes(qp)
-		qp.end()
+	def changeValue(self, value):
+		self.c.updateBW.emit(value)
+		self.wid.repaint()
+
+	# def paintEvent(self, e):
+	# 	qp = QtGui.QPainter()
+	# 	qp.begin(self)
+	# 	# self.drawCircle(qp)
+	# 	# self.drawLines(qp)
+	# 	self.drawBigBrushes(qp)
+	# 	qp.end()
 
 	# def drawCircle(self, qp):
 	# 	qp.setPen(QtCore.Qt.NoPen)
@@ -453,19 +540,19 @@ class Example(QtWidgets.QMainWindow):
 	# 	self.lineSize = value
 	# 	self.update()
 
-	def drawChange(self):
-		if (self.sender().text() == ">"):
-			if (self.currentBrush + 1 == len(self.brushs)):
-				self.currentBrush = 0
-			else:
-				self.currentBrush += 1
-		else:
-			if (self.currentBrush == 0):
-				self.currentBrush = len(self.brushs) - 1
-			else:
-				self.currentBrush -= 1
+	# def drawChange(self):
+	# 	if (self.sender().text() == ">"):
+	# 		if (self.currentBrush + 1 == len(self.brushs)):
+	# 			self.currentBrush = 0
+	# 		else:
+	# 			self.currentBrush += 1
+	# 	else:
+	# 		if (self.currentBrush == 0):
+	# 			self.currentBrush = len(self.brushs) - 1
+	# 		else:
+	# 			self.currentBrush -= 1
 
-		self.update()
+	# 	self.update()
 
 	# def drawBigBrushes(self, qp):
 	# 	qp.setBrush(self.brushs[self.currentBrush])
