@@ -34,13 +34,14 @@ class BurningWidget(QtWidgets.QWidget):
 		w = size.width()
 		h = size.height()
 		step = int(round(w / 10.0))
+		print(step)
 
 		till = int(((w / 750.0) * self.value))
 		full = int(((w / 750.0) * 700))
 
 		if self.value >= 700:
 			qp.setPen(QtGui.QColor(255, 255, 255))
-			qp.setBrush(QtGui.QCloseEvent(255, 255, 184))
+			qp.setBrush(QtGui.QColor(255, 255, 184))
 			qp.drawRect(0, 0, full, h)
 			qp.setPen(QtGui.QColor(255, 175, 175))
 			qp.setBrush(QtGui.QColor(255, 175, 175))
@@ -59,10 +60,10 @@ class BurningWidget(QtWidgets.QWidget):
 
 		j = 0
 
-		for i in range(step, 10 * step, step):
+		for i in range(step, 9 * step, step):
 			qp.drawLine(i, 0, i, 5)
 			metrics = qp.fontMetrics()
-			fw = metrics.width(str(self.num[j]))
+			fw = metrics.horizontalAdvance(str(self.num[j]))
 			qp.drawText(i - fw / 2, h / 2, str(self.num[j]))
 			j = j + 1
 
@@ -499,6 +500,7 @@ class Example(QtWidgets.QMainWindow):
 		hbox = QtWidgets.QHBoxLayout()
 		hbox.addWidget(self.wid)
 		vbox = QtWidgets.QVBoxLayout()
+		vbox.addWidget(sld)
 		vbox.addStretch(1)
 		vbox.addLayout(hbox)
 
