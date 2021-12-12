@@ -36,3 +36,10 @@ class Board(QtWidgets.QFrame):
 		    x + self.squareWidth() - 1, y + self.squareHeight() - 1)
 		painter.drawLine(x + self.squareWidth() - 1, 
 		    y + self.squareHeight() - 1, x + self.squareWidth() - 1, y + 1)
+
+	
+	def shapeAt(self, x, y):
+		return self.board[(y * Board.BoardWidth) + x]
+
+	def setShapeAt(self, x, y, shape):
+		self.board[(y * Board.BoardWidth) + x] = shape
