@@ -10,7 +10,7 @@ class Board(QtWidgets.QFrame):
 
 	BoardWidth = 10
 	BoardHeight = 22
-	Speed = 300
+	Speed = 200
 
 	def __init__(self, parent):
 		super(Board, self).__init__()
