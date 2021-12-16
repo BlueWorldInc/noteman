@@ -23,7 +23,7 @@ layout.setContentsMargins(0, 0, 0, 0)
 # layout.setSpacing(0)
 textArea = QTextEdit("")
 # textArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-# textArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+textArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
 layout.addWidget(textArea)
 fen.setLayout(layout)
 
